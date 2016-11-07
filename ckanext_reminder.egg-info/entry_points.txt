@@ -1,0 +1,7 @@
+
+        [paste.paster_command]
+        reminder=ckanext.reminder.commands:ReminderCommand
+
+        [ckan.plugins]
+        reminder=ckanext.reminder.plugin:ReminderPlugin
+    
