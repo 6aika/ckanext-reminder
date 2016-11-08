@@ -1,4 +1,4 @@
-from ckan.common import request
+from ckan.common import request, _
 from pylons import config
 from ckan import model
 from ckan.lib.mailer import mail_user
@@ -32,8 +32,8 @@ def send_reminders():
         for item in items['results']:
 
             # Todo add localization
-            message_body = 'This is a reminder of a dataset expiration: ' + config.get('ckanext.reminder.site_url') + '/dataset/' + item['name']
-            mail_user(recipient, "CKAN reminder", message_body)
+            message_body = _('This is a reminder of a dataset expiration') + ': ' + config.get('ckanext.reminder.site_url') + '/dataset/' + item['name']
+            mail_user(recipient, _('CKAN reminder'), message_body)
 
     except Exception, ex:
         log.exception(ex)
