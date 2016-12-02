@@ -31,9 +31,13 @@ def send_reminders():
 
         for item in items['results']:
 
-            # Todo add localization
             message_body = _('This is a reminder of a dataset expiration') + ': ' + config.get('ckanext.reminder.site_url') + '/dataset/' + item['name']
             mail_user(recipient, _('CKAN reminder'), message_body)
+
+        if len(items['results']) == 0:
+            log.debug("No pending reminders for current date")
+        else:
+            log.debug("Reminder emails sent")
 
     except Exception, ex:
         log.exception(ex)
