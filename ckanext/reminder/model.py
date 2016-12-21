@@ -65,6 +65,34 @@ class Reminder(Base):
             model.repo.commit()
             log.info('Subscription added for package' + package_id + ' with email ' + subscriber_email)
 
+    @classmethod
+    def remove_subscriber(cls, package_id, subscriber_email):
+        subscriber = model.Session.query(cls) \
+            .filter(cls.package_id == package_id) \
+            .filter(cls.subscriber_email == subscriber_email)
+
+        if(subscriber):
+            subscriber.delete()
+            model.repo.commit()
+            return True
+        return False
+
+    @classmethod
+    def update_previous_reminder_sent(cls, package_id, subscriber_email):
+        existing_subscription = model.Session.query(cls) \
+            .filter(cls.package_id == package_id) \
+            .filter(cls.subscriber_email == subscriber_email)
+
+        if (existing_subscription.first()):
+            now = datetime.datetime.now()
+            existing_subscription.update({
+                'previous_reminder_sent': now,
+                'updated': now
+            })
+            model.repo.commit()
+            return True
+        return False
+
 def init_tables(engine):
     Base.metadata.create_all(engine)
     log.info('Reminder database tables are set-up')

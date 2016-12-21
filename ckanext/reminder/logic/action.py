@@ -57,6 +57,7 @@ def get_updated_packages_for_user(subscriber_email):
     updated_packages = []
     for subscription in subscriptions:
         updated_package = logic.get_action('package_show')({}, { 'name_or_id': subscription.package_id })
+        Reminder.update_previous_reminder_sent(subscription.package_id, subscription.subscriber_email)
 
         if updated_package:
             # Notify user of an updated package if not already notified
