@@ -27,8 +27,20 @@ class ReminderCommand(p.toolkit.CkanCommand):
 
         if cmd == 'send':
             self.send()
+        elif cmd == 'notify':
+            self.notify()
+        elif cmd == 'init':
+            self.init_db()
         else:
             self.log.error('Command "%s" not recognized' % (cmd,))
 
     def send(self):
         action.send_reminders()
+
+    def notify(self):
+        action.send_notifications()
+
+    def init_db(self):
+        import ckan.model as model
+        from ckanext.reminder.model import init_tables
+        init_tables(model.meta.engine)

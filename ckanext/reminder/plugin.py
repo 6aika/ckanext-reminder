@@ -6,6 +6,7 @@ class ReminderPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IConfigurable)
     plugins.implements(plugins.IActions)
+    plugins.implements(plugins.IRoutes, inherit=True)
 
     # IConfigurer
 
@@ -34,6 +35,17 @@ class ReminderPlugin(plugins.SingletonPlugin):
     # IActions
 
     def get_actions(self):
-        return { 'send_email_reminders': action.send_email_reminders }
+        return {
+            'send_email_reminders': action.send_email_reminders,
+            'subscribe_to_package': action.subscribe_to_package
+        }
 
+    # IRoutes
+
+    def before_map(self, map):
+        map.connect('/dataset/{package_id}/subscribe',
+                    controller='ckanext.reminder.controller:ReminderController',
+                    action='subscribe_to_package')
+
+        return map
     
