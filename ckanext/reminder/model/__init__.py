@@ -33,8 +33,8 @@ class Reminder(Base):
 
     def as_dict(self):
         context = {'model': model}
-        reminder_dict = dictization.table_dictize(self, context)
-        return reminder_dict
+        dictized_cls = dictization.table_dictize(self, context)
+        return dictized_cls
 
     @classmethod
     def filter(cls, **kwargs):
@@ -56,59 +56,32 @@ class Reminder(Base):
 
     @classmethod
     def get_subscribed_users(cls):
-        return model.Session.query(cls).options(load_only("subscriber_email")).distinct()
+        return model.Session.query(cls).all()
 
     @classmethod
-    def get_user_subscriptions(cls, subscriber_email):
-        return model.Session.query(cls) \
-            .filter(cls.subscriber_email == subscriber_email) \
-            .all()
-
-    @classmethod
-    def get_user_subscription_for_package(cls, package_id, subscriber_email):
-        return model.Session.query(cls) \
-            .filter(cls.packages.package_id == package_id) \
+    def get_or_add_subscriber(cls, subscriber_email):
+        subscriber = model.Session.query(cls) \
             .filter(cls.subscriber_email == subscriber_email) \
             .first()
 
-    @classmethod
-    def add_subscriber(cls, package_id, subscriber_email):
-
-        existing_subscription = cls.get_user_subscription_for_package(package_id, subscriber_email)
-
-        if existing_subscription:
-            log.info('Subscription for package ' + package_id + ' with email ' + subscriber_email + ' already exists')
-        else:
+        if not subscriber:
             try:
-                subscription = Reminder(
+                subscriber = Reminder(
                     subscriber_email = subscriber_email
                 )
 
-                package = model.Package.get(package_id)
-
-                subscription.packages.append(package)
-                model.Session.add(subscription)
+                model.Session.add(subscriber)
                 model.repo.commit()
-                log.info('Subscription added for package' + package_id + ' with email ' + subscriber_email)
+                log.info('Subscription added for email ' + subscriber_email)
+                return subscriber.as_dict()
             except ValidationError, ex:
                 log.error(ex)
 
-    @classmethod
-    def remove_subscriber(cls, package_id, subscriber_email):
-        subscriber = model.Session.query(cls) \
-            .filter(cls.package_id == package_id) \
-            .filter(cls.subscriber_email == subscriber_email)
-
-        if(subscriber):
-            subscriber.delete()
-            model.repo.commit()
-            return True
-        return False
+        return subscriber.as_dict()
 
     @classmethod
-    def update_previous_reminder_sent(cls, package_id, subscriber_email):
+    def update_previous_reminder_sent(cls, subscriber_email):
         existing_subscription = model.Session.query(cls) \
-            .filter(cls.package_id == package_id) \
             .filter(cls.subscriber_email == subscriber_email)
 
         if (existing_subscription.first()):
@@ -138,6 +111,11 @@ def setup():
 
 class ReminderSubscriptionPackageAssociation(DomainObject):
 
+    def as_dict(self):
+        context = {'model': model}
+        dictized_cls = dictization.table_dictize(self, context)
+        return dictized_cls
+
     @classmethod
     def filter(cls, **kwargs):
         return model.Session.query(cls).filter_by(**kwargs)
@@ -162,10 +140,20 @@ class ReminderSubscriptionPackageAssociation(DomainObject):
         return instance.as_dict()
 
     @classmethod
-    def get_packages_for_email(cls, subscriber_email):
-        return Session.query(cls) \
-            .filter(cls.subscriber_email == subscriber_email) \
-            .all()
+    def get_subscriber_package_ids(cls, reminder_subscription_id):
+        return model.Session.query(cls).options(load_only("package_id")).all()
+
+    @classmethod
+    def remove(cls, package_id, reminder_subscription_id):
+        subscription = model.Session.query(cls) \
+            .filter(cls.package_id == package_id) \
+            .filter(cls.reminder_subscription_id == reminder_subscription_id)
+
+        if(subscription):
+            subscription.delete()
+            model.repo.commit()
+            return True
+        return False
 
 def init_tables(engine):
     Base.metadata.create_all(engine)
