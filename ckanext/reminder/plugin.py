@@ -42,7 +42,9 @@ class ReminderPlugin(plugins.SingletonPlugin):
         return {
             'send_email_reminders': action.send_email_reminders,
             'subscribe_to_package': action.subscribe_to_package,
-            'get_packages_for_user': action.get_packages_for_user
+            'get_packages_for_user': action.get_packages_for_user,
+            'unsubscribe': action.unsubscribe,
+            'unsubscribe_all': action.unsubscribe_all
         }
 
     # IRoutes
@@ -55,6 +57,14 @@ class ReminderPlugin(plugins.SingletonPlugin):
         map.connect('/reminder/{subscriber_email}/unsubscribe/{unsubscribe_token}',
                     controller='ckanext.reminder.controller:ReminderController',
                     action='unsubscribe_index')
+
+        map.connect('/reminder/unsubscribe',
+                    controller='ckanext.reminder.controller:ReminderController',
+                    action='unsubscribe')
+
+        map.connect('/reminder/unsubscribe_all',
+                    controller='ckanext.reminder.controller:ReminderController',
+                    action='unsubscribe_all'),
 
         return map
     

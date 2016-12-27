@@ -10,11 +10,19 @@
   <button class="btn">{{ _('Unsubscribe all') }}</button>
 
   <h2>{{ _('Subscriptions') }} ({{ c.subscriptions|length }})</h2>
-  <ul>
-    {% for item in c.subscriptions %}
-      <li><a href="{{ h.url_for(controller='package', action='read', id=item.name) }}"</a>{{ item.title }}</li>
-    {% endfor %}
-  </ul>
+    <ul>
+      {% for item in c.subscriptions %}
+      <form action="/reminder/unsubscribe" method="post" enctype="application/x-www-form-urlencoded">
+        <input type="hidden" name="unsubscribe_token" value="{{c.unsubscribe_token}}">
+        <input type="hidden" name="subscriber_email" value="{{c.subscriber_email}}">
+        <li>
+          <input type="hidden" name="package_id" value="{{item.id}}">
+          <a href="{{ h.url_for(controller='package', action='read', id=item.name) }}"</a>{{ item.title }}
+          <button type="submit" class="btn">{{ _('Unsubscribe') }}</button>
+        </li>
+      </form>
+      {% endfor %}
+    </ul>
 {% endblock %}
 
 {% block secondary_content %}

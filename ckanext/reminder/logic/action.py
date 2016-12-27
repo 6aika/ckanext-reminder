@@ -135,3 +135,27 @@ def subscribe_to_package(context, data_dict):
                                                           reminder_subscription_id=subscriber['id'])
     if error:
         raise ValidationError(error)
+
+def unsubscribe(context, data_dict):
+    'Unsubscribe a specific package'
+    package_id = data_dict.get('package_id')
+    subscriber_email = data_dict.get('subscriber_email')
+    unsubscribe_token = data_dict.get('unsubscribe_token')
+
+    error = None
+    if not package_id:
+        error = _('You must supply a package id '
+                  '(parameter "package_id").')
+    elif not subscriber_email:
+        error = _('You must supply a subscriber email (parameter "subscriber_email").')
+    elif not unsubscribe_token:
+        error = _('You must supply an unsubscribe token (parameter "unsubscribe_token").')
+    else:
+        subscriber = Reminder.get_subscriber_dict(subscriber_email)
+        ReminderSubscriptionPackageAssociation.remove(package_id=package_id,
+                                                      reminder_subscription_id=subscriber.get('id'))
+    if error:
+        raise ValidationError(error)
+
+def unsubscribe_all(context, data_dict):
+    return
