@@ -27,7 +27,7 @@ class Reminder(Base):
     id = Column(types.UnicodeText, primary_key=True, default=make_uuid)
     subscriber_email = Column(types.UnicodeText, nullable=False)
     previous_reminder_sent = Column(types.DateTime, default=datetime.datetime.now)
-    unsubscribe_token = Column(types.UnicodeText, nullable=True, index=True)
+    unsubscribe_token = Column(types.UnicodeText, nullable=False, default=make_uuid)
     created = Column(types.DateTime, default=datetime.datetime.now)
     updated = Column(types.DateTime, default=datetime.datetime.now)
 
@@ -57,6 +57,10 @@ class Reminder(Base):
     @classmethod
     def get_subscribed_users(cls):
         return model.Session.query(cls).all()
+
+    @classmethod
+    def get_subscriber_dict(cls, subscriber_email):
+        return model.Session.query(cls).filter(cls.subscriber_email == subscriber_email).first().as_dict()
 
     @classmethod
     def get_or_add_subscriber(cls, subscriber_email):

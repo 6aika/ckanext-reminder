@@ -51,6 +51,28 @@ def send_reminders():
         log.exception(ex)
         raise
 
+def get_packages_for_user(context, data_dict):
+    '''
+    Returns a list of packages for the provided email address
+    Returns an empty list if the unsubscribe does not match to the subscriber's token
+    '''
+    subscriber_email = data_dict.get('subscriber_email')
+    unsubscribe_token = data_dict.get('unsubscribe_token')
+    subscriber = Reminder.get_subscriber_dict(subscriber_email)
+
+    packages = []
+
+    # Make sure the given unsubscribe token matches the stored one
+    # Return empty list if no match, for security
+    if subscriber and subscriber.get('unsubscribe_token') == unsubscribe_token:
+        package_ids = ReminderSubscriptionPackageAssociation.get_subscriber_package_ids(subscriber.get('id'))
+
+        for package_id in package_ids:
+            package = logic.get_action('package_show')({}, { 'name_or_id': package_id.package_id })
+            if package:
+                packages.append(package)
+    return packages
+
 def get_updated_packages_for_user(subscriber_id, previous_reminder_sent):
     subscriptions = ReminderSubscriptionPackageAssociation.get_subscriber_package_ids(subscriber_id)
 

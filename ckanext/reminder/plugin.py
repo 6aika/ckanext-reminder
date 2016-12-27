@@ -41,7 +41,8 @@ class ReminderPlugin(plugins.SingletonPlugin):
     def get_actions(self):
         return {
             'send_email_reminders': action.send_email_reminders,
-            'subscribe_to_package': action.subscribe_to_package
+            'subscribe_to_package': action.subscribe_to_package,
+            'get_packages_for_user': action.get_packages_for_user
         }
 
     # IRoutes
@@ -50,6 +51,10 @@ class ReminderPlugin(plugins.SingletonPlugin):
         map.connect('/dataset/{package_id}/subscribe',
                     controller='ckanext.reminder.controller:ReminderController',
                     action='subscribe_to_package')
+
+        map.connect('/reminder/{subscriber_email}/unsubscribe/{unsubscribe_token}',
+                    controller='ckanext.reminder.controller:ReminderController',
+                    action='unsubscribe_index')
 
         return map
     

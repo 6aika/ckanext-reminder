@@ -1,0 +1,22 @@
+{% extends "page.html" %}
+
+{% block breadcrumb_content %}
+
+{% endblock %}
+
+{% block primary_content_inner %}
+  <h1>{% block page_heading %}{{ _('Unsubscribe') }}{%endblock%}</h1>
+
+  <button class="btn">{{ _('Unsubscribe all') }}</button>
+
+  <h2>{{ _('Subscriptions') }} ({{ c.subscriptions|length }})</h2>
+  <ul>
+    {% for item in c.subscriptions %}
+      <li><a href="{{ h.url_for(controller='package', action='read', id=item.name) }}"</a>{{ item.title }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
+
+{% block secondary_content %}
+  {% snippet "reminder/snippets/info.html" %}
+{% endblock %}
