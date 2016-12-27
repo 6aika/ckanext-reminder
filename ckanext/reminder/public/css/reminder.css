@@ -1,0 +1,21 @@
+.subscriptions-list {
+    list-style: none;
+    padding: 0;
+}
+
+.subscriptions-list
+.subscriptions-list-item {
+    margin-bottom: 10px;
+}
+
+.subscriptions-list
+.subscriptions-list-item:last-child {
+    margin-bottom: 0;
+}
+
+.subscriptions-list
+.subscriptions-list-item 
+.btn {
+    vertical-align: baseline;
+    padding: 5px 10px;
+}
