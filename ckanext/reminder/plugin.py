@@ -1,7 +1,6 @@
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 from ckanext.reminder.logic import action
-from ckanext.reminder.model import setup as model_setup
 
 class ReminderPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
@@ -33,9 +32,6 @@ class ReminderPlugin(plugins.SingletonPlugin):
                         key
                     )
                 )
-
-        # Setup reminder model
-        model_setup()
 
     # IActions
 

@@ -10,6 +10,7 @@ from ckan import model
 from ckan.model.domain_object import DomainObject
 from sqlalchemy.orm import load_only
 from ckan.logic import ValidationError
+import ckan.model.package
 
 log = __import__('logging').getLogger(__name__)
 
@@ -161,6 +162,7 @@ class ReminderSubscriptionPackageAssociation(DomainObject):
 
 def init_tables(engine):
     Base.metadata.create_all(engine)
+    setup()
     log.info('Reminder database tables are set-up')
 
 def define_reminder_subscription_package_association_table():
