@@ -2,10 +2,15 @@
 ckanext-reminder
 =============
 
-This extension provides simple email notifications for datasets which have a set data-expiry date. The extension relies on a
-daily cronjob during which datasets are checked if the reminder-data is set to current date. The email sending process is not
-retried in any way and the emails will not be sent if the cronjob fails to run for some reason. 
+This extension has two main functions.
 
+1. The extension provides simple email notifications for datasets which have a set data-expiry date. The extension relies on a
+daily cronjob during which datasets are checked if the reminder-data is set to current date. The email sending process is not
+retried in any way and the emails will not be sent if the cronjob fails to run for some reason.
+
+2. The extension provides a subscription form snippet which can be added to dataset templates. Users can submit their
+email address and receive notifications of these specific datasets when they are updated. The user can unsubscribe
+from any datasets by clicking the link located at the bottom of the email.
 
 ------------
 Requirements
@@ -20,11 +25,11 @@ Installation
 
 To install ckanext-reminder:
 
-1. Activate your CKAN virtual environment, for example
+1. Activate your CKAN virtual environment, for example::
 
      . /usr/lib/ckan/default/bin/activate
 
-2. Install the ckanext-reminder Python package into your virtual environment
+2. Install the ckanext-reminder Python package into your virtual environment::
 
      pip install ckanext-reminder
 
@@ -32,7 +37,7 @@ To install ckanext-reminder:
    config file (by default the config file is located at
    ``/etc/ckan/default/production.ini``).
 
-4. Restart CKAN. For example if you've deployed CKAN with Apache on Ubuntu
+4. Restart CKAN. For example if you've deployed CKAN with Apache on Ubuntu::
 
      sudo service apache2 reload
 
@@ -45,6 +50,9 @@ To install ckanext-reminder:
         "display_snippet": null
     }
 
+6. Initialize database tables used by the subscribe to email notifications functionality::
+
+    paster --plugin=ckanext-rating rating init --config=production.ini
 
 ---------------
 Config Settings
