@@ -52,7 +52,15 @@ To install ckanext-reminder:
 
 6. Initialize database tables used by the subscribe to email notifications functionality::
 
-    paster --plugin=ckanext-rating rating init --config=production.ini
+    paster --plugin=ckanext-reminder reminder init --config=YOUR_CONFIGURATION.ini
+
+7. Call the appropriate paster commands in e.g. a cronjob to send the reminders/notifications::
+
+    # For admin reminders of dataset expiration
+    paster --plugin=ckanext-reminder reminder send --config=YOUR_CONFIGURATION.ini
+
+    # For update notifications to subscribed users
+    paster --plugin=ckanext-reminder reminder notify --config=YOUR_CONFIGURATION.ini
 
 ---------------
 Config Settings
