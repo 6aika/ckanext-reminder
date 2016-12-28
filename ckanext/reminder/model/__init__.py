@@ -11,6 +11,7 @@ from ckan.model.domain_object import DomainObject
 from sqlalchemy.orm import load_only
 from ckan.logic import ValidationError
 import ckan.model.package
+from ckan.model.package import Package
 
 log = __import__('logging').getLogger(__name__)
 
@@ -99,22 +100,22 @@ class Reminder(Base):
             return True
         return False
 
-def setup():
-    # setup package_association_table
-    if package_association_table is None:
-        define_reminder_subscription_package_association_table()
-        log.debug('ReminderSubscriptionPackageAssociation table defined in memory')
+class ReminderSubscriptionPackageAssociation(Base):
 
-    if model.package_table.exists():
-        if not package_association_table.exists():
-            package_association_table.create()
-            log.debug('ReminderSubscriptionPackageAssociation table create')
-        else:
-            log.debug('ReminderSubscriptionPackageAssociation table already exists')
-    else:
-        log.debug('ReminderSubscriptionPackageAssociation table creation deferred')
+    __tablename__ = 'reminder_subscription_package_association'
 
-class ReminderSubscriptionPackageAssociation(DomainObject):
+    reminder_subscription_id = Column(types.Text,
+           ForeignKey(Reminder.id,
+                      ondelete='CASCADE',
+                      onupdate='CASCADE'),
+           primary_key=True,
+           nullable=False)
+    package_id = Column(types.Text,
+           ForeignKey(Package.id,
+                      ondelete='CASCADE',
+                      onupdate='CASCADE'),
+           primary_key=True,
+           nullable=False)
 
     def as_dict(self):
         context = {'model': model}
@@ -146,7 +147,10 @@ class ReminderSubscriptionPackageAssociation(DomainObject):
 
     @classmethod
     def get_subscriber_package_ids(cls, reminder_subscription_id):
-        return model.Session.query(cls).options(load_only("package_id")).all()
+        return model.Session.query(cls) \
+            .filter(cls.reminder_subscription_id == reminder_subscription_id) \
+            .options(load_only("package_id")) \
+            .all()
 
     @classmethod
     def remove(cls, package_id, reminder_subscription_id):
@@ -162,28 +166,4 @@ class ReminderSubscriptionPackageAssociation(DomainObject):
 
 def init_tables(engine):
     Base.metadata.create_all(engine)
-    setup()
     log.info('Reminder database tables are set-up')
-
-def define_reminder_subscription_package_association_table():
-    global package_association_table
-
-    package_association_table = Table(
-        'reminder_subscription_package_association', metadata,
-        Column('reminder_subscription_id',
-               types.Text,
-               ForeignKey(Reminder.id,
-                          ondelete='CASCADE',
-                          onupdate='CASCADE'),
-               primary_key=True,
-               nullable=False),
-        Column('package_id',
-               types.Text,
-               ForeignKey('package.id',
-                          ondelete='CASCADE',
-                          onupdate='CASCADE'),
-               primary_key=True,
-               nullable=False)
-    )
-
-    mapper(ReminderSubscriptionPackageAssociation, package_association_table)

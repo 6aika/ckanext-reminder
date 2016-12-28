@@ -104,7 +104,7 @@ def send_notifications():
         if len(updated_packages) > 0:
             message_body = _('The following datasets have been updated') + ':\n' + stringified_updated_packages_list + \
                            '\nUnsubscribe from this newsletter: ' + config.get('ckanext.reminder.site_url') + '/reminder/' + \
-                           subscriber.subscriber_email + '/unsubscribe/' + subscriber.unsubscription_token
+                           subscriber.subscriber_email + '/unsubscribe/' + subscriber.unsubscribe_token
 
             mail_recipient(subscriber.subscriber_email, subscriber.subscriber_email, _('Dataset has been updated'), message_body)
             Reminder.update_previous_reminder_sent(subscriber.subscriber_email)
