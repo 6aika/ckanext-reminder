@@ -9,20 +9,77 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-reminder 0.0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-11-08 07:02+0000\n"
+"POT-Creation-Date: 2016-12-28 09:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 0.9.6\n"
+"Generated-By: Babel 2.3.4\n"
 
-#: ckanext/reminder/logic/action.py:35
+#: ckanext/reminder/logic/action.py:42
 msgid "This is a reminder of a dataset expiration"
 msgstr ""
 
-#: ckanext/reminder/logic/action.py:36
+#: ckanext/reminder/logic/action.py:43
 msgid "CKAN reminder"
+msgstr ""
+
+#: ckanext/reminder/logic/action.py:105
+msgid "The following datasets have been updated"
+msgstr ""
+
+#: ckanext/reminder/logic/action.py:106
+msgid "Dataset has been updated"
+msgstr ""
+
+#: ckanext/reminder/logic/action.py:124
+msgid "You must supply a package id or name (parameter \"package\")."
+msgstr ""
+
+#: ckanext/reminder/logic/action.py:127 ckanext/reminder/logic/action.py:151
+#: ckanext/reminder/logic/action.py:169
+msgid "You must supply a subscriber email (parameter \"subscriber_email\")."
+msgstr ""
+
+#: ckanext/reminder/logic/action.py:131
+msgid "Not found"
+msgstr ""
+
+#: ckanext/reminder/logic/action.py:148
+msgid "You must supply a package id (parameter \"package_id\")."
+msgstr ""
+
+#: ckanext/reminder/logic/action.py:153 ckanext/reminder/logic/action.py:171
+msgid "You must supply an unsubscribe token (parameter \"unsubscribe_token\")."
+msgstr ""
+
+#: ckanext/reminder/templates/reminder/snippets/info.html:5
+#: ckanext/reminder/templates/reminder/unsubscribe.html:9
+#: ckanext/reminder/templates/reminder/unsubscribe.html:26
+msgid "Unsubscribe"
+msgstr ""
+
+#: ckanext/reminder/templates/reminder/unsubscribe.html:15
+msgid "Unsubscribe from all datasets"
+msgstr ""
+
+#: ckanext/reminder/templates/reminder/unsubscribe.html:18
+msgid "Subscriptions"
+msgstr ""
+
+#: ckanext/reminder/templates/reminder/unsubscribe.html:33
+msgid "You have not subscribed to any datasets"
+msgstr ""
+
+#: ckanext/reminder/templates/reminder/snippets/info.html:7
+msgid ""
+"You can use this page to unsubscribe from notifications for packages you have"
+" previously subscribed to"
+msgstr ""
+
+#: ckanext/reminder/templates/reminder/snippets/subscription_form.html:5
+msgid "Subscribe"
 msgstr ""
 

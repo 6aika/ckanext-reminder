@@ -36,22 +36,21 @@ To install ckanext-reminder:
 
      sudo service apache2 reload
 
-5. Add the following field to your dataset. E.g. with ckanext-scheming
+5. Add the following field to your dataset. E.g. with ckanext-scheming::
 
-```
     {
         "field_name": "reminder",
         "label": "Next reminder date",
         "preset": "date",
         "display_snippet": null
     }
-```
+
 
 ---------------
 Config Settings
 ---------------
 
-The extension supports one recipient for reminder emails. Required configs are
+The extension supports one recipient for reminder emails. Required configs are::
 
     ckanext.reminder.site_url = https://<YOUR_SITE_URL>
     ckanext.reminder.recipient_username = <YOUR_ADMIN_USERNAME>
@@ -62,9 +61,27 @@ Development Installation
 ------------------------
 
 To install ckanext-reminder for development, activate your CKAN virtualenv and
-do
+do::
 
     git clone https://github.com/6aika/ckanext-reminder.git
     cd ckanext-reminder
     python setup.py develop
     pip install -r dev-requirements.txt
+
+
+---------------
+Updating translations
+---------------
+
+To extract all translatable strings run this command in the plugin root directory::
+
+    python setup.py extract_messages
+
+After this the updated ckanext-reminder.pot with the source language can be pushed to Transifex with the transifex client::
+
+    tx push --source
+
+Translate new strings in Transifex and pull them by running::
+
+    # --force can be added if old translations can be overwritten by the ones fetched from transifex (this is usually the case)
+    tx pull
