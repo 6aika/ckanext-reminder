@@ -134,8 +134,10 @@ def subscribe_to_package(context, data_dict):
             error = _('Not found') + ': %r' % package_ref
         else:
             subscriber = Reminder.get_or_add_subscriber(subscriber_email)
-            ReminderSubscriptionPackageAssociation.create(package_id=package.id,
-                                                          reminder_subscription_id=subscriber['id'])
+            if not ReminderSubscriptionPackageAssociation.exists(package_id=package.id,
+                                                                 reminder_subscription_id=subscriber['id']):
+                ReminderSubscriptionPackageAssociation.create(package_id=package.id,
+                                                              reminder_subscription_id=subscriber['id'])
     if error:
         raise ValidationError(error)
 
