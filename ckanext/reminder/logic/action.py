@@ -35,7 +35,9 @@ def send_reminders():
         recipient = model.User.get(username)
 
         if(items['results']):
-            log.info('Number of datasets with reminders found: ' + len(items['results']))
+            log.info('Number of datasets with reminders found: ' + str( len(items['results']) ))
+        else:
+            log.info('No datasets found with reminder set to current date')
 
         for item in items['results']:
 
