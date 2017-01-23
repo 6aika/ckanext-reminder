@@ -8,8 +8,9 @@ from ckan.logic import ValidationError
 
 import ckan.logic as logic
 import datetime
+import logging
 
-log = __import__('logging').getLogger(__name__)
+log = logging.getLogger(__name__)
 
 def send_email_reminders(context, data_dict):
     if request.environ.get('paste.command_request'):
@@ -35,19 +36,15 @@ def send_reminders():
         recipient = model.User.get(username)
 
         if(items['results']):
-            log.info('Number of datasets with reminders found: ' + str( len(items['results']) ))
+            log.debug('Number of datasets with reminders found: ' + str( len(items['results']) ))
         else:
-            log.info('No datasets found with reminder set to current date')
+            log.debug('No datasets found with reminder set to current date')
 
         for item in items['results']:
-
             message_body = _('This is a reminder of a dataset expiration') + ': ' + config.get('ckanext.reminder.site_url') + '/dataset/' + item['name']
-            mail_user(recipient, _('CKAN reminder'), message_body)
+            mail_user(recipient, _('CKAN reminder'), message_body, {})
 
-        if len(items['results']) == 0:
-            log.debug("No pending reminders for current date")
-        else:
-            log.debug("Reminder emails sent")
+        log.debug("Reminder emails processed")
 
     except Exception, ex:
         log.exception(ex)
