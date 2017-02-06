@@ -19,3 +19,15 @@
     vertical-align: baseline;
     padding: 5px 10px;
 }
+
+.subscription-form
+.form-group {
+    text-align: right;
+    margin: 0;
+}
+
+.subscription-form
+.form-group
+button {
+    margin-top: 6px;
+}
