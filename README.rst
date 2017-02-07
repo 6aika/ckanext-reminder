@@ -68,8 +68,11 @@ Config Settings
 
 The extension supports one recipient for reminder emails. Required configs are::
 
+    # The email links will be prefixed with this site url
     ckanext.reminder.site_url = https://<YOUR_SITE_URL>
-    ckanext.reminder.recipient_username = <YOUR_ADMIN_USERNAME>
+
+    # This configuration can be overwritten in the admin configuration UI
+    ckanext.reminder.email = <YOUR_EMAIL_ADDRESS>
 
 
 ------------------------

@@ -32,8 +32,7 @@ def send_reminders():
     items = get_datasets_with_reminders()
 
     try:
-        username = config.get('ckanext.reminder.recipient_username')
-        recipient = model.User.get(username)
+        recipient_email = config.get('ckanext.reminder.email')
 
         if(items['results']):
             log.debug('Number of datasets with reminders found: ' + str( len(items['results']) ))
@@ -42,7 +41,7 @@ def send_reminders():
 
         for item in items['results']:
             message_body = _('This is a reminder of a dataset expiration') + ': ' + config.get('ckanext.reminder.site_url') + '/dataset/' + item['name']
-            mail_user(recipient, _('CKAN reminder'), message_body, {})
+            mail_recipient(recipient_email, recipient_email, _('CKAN reminder'), message_body)
 
         log.debug("Reminder emails processed")
 

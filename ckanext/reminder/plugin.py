@@ -16,13 +16,22 @@ class ReminderPlugin(plugins.SingletonPlugin):
         toolkit.add_resource('fanstatic', 'reminder')
         toolkit.add_resource('public/css/', 'reminder_css')
 
+    def update_config_schema(self, schema):
+        ignore_missing = toolkit.get_validator('ignore_missing')
+
+        schema.update({
+            'ckanext.reminder.email': [ignore_missing, unicode],
+        })
+
+        return schema
+
     # IConfigurable
 
     def configure(self, config):
         # Raise an exception if required configs are missing
         required_keys = (
             'ckanext.reminder.site_url',
-            'ckanext.reminder.recipient_username'
+            'ckanext.reminder.email'
         )
 
         for key in required_keys:

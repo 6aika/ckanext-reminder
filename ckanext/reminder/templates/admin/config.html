@@ -1,0 +1,8 @@
+{% ckan_extends %}
+
+{% import 'macros/form.html' as form %}
+
+{% block admin_form %}
+{{ super() }}
+{{ form.input('ckanext.reminder.email', id='field-ckanext.reminder.email', label=_('Reminder email address'), value=data['ckanext.reminder.email'], error=errors['ckanext.reminder.email']) }}
+{% endblock %}
