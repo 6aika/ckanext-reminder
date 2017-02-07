@@ -1,15 +1,15 @@
 # Translations template for ckanext-reminder.
-# Copyright (C) 2016 ORGANIZATION
+# Copyright (C) 2017 ORGANIZATION
 # This file is distributed under the same license as the ckanext-reminder
 # project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-reminder 0.0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-12-28 09:43+0000\n"
+"POT-Creation-Date: 2017-02-07 10:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mikko Nieminen <mikko.nieminen@gofore.com>, 2016\n"
 "Language-Team: English (United Kingdom) (https://www.transifex.com/6aika-dataportal/teams/68018/en_GB/)\n"
@@ -20,41 +20,49 @@ msgstr ""
 "Language: en_GB\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ckanext/reminder/logic/action.py:42
+#: ckanext/reminder/controller.py:26
+msgid "Invalid request: {error_message}"
+msgstr ""
+
+#: ckanext/reminder/logic/action.py:43
 msgid "This is a reminder of a dataset expiration"
 msgstr "This is a reminder of a dataset expiration"
 
-#: ckanext/reminder/logic/action.py:43
+#: ckanext/reminder/logic/action.py:44
 msgid "CKAN reminder"
 msgstr "CKAN reminder"
 
-#: ckanext/reminder/logic/action.py:105
+#: ckanext/reminder/logic/action.py:103
 msgid "The following datasets have been updated"
 msgstr ""
 
-#: ckanext/reminder/logic/action.py:106
+#: ckanext/reminder/logic/action.py:107
 msgid "Dataset has been updated"
 msgstr ""
 
-#: ckanext/reminder/logic/action.py:124
+#: ckanext/reminder/logic/action.py:125
 msgid "You must supply a package id or name (parameter \"package\")."
 msgstr ""
 
-#: ckanext/reminder/logic/action.py:127 ckanext/reminder/logic/action.py:151
-#: ckanext/reminder/logic/action.py:169
+#: ckanext/reminder/logic/action.py:128 ckanext/reminder/logic/action.py:154
+#: ckanext/reminder/logic/action.py:172
 msgid "You must supply a subscriber email (parameter \"subscriber_email\")."
 msgstr ""
 
-#: ckanext/reminder/logic/action.py:131
+#: ckanext/reminder/logic/action.py:132
 msgid "Not found"
 msgstr ""
 
-#: ckanext/reminder/logic/action.py:148
+#: ckanext/reminder/logic/action.py:151
 msgid "You must supply a package id (parameter \"package_id\")."
 msgstr ""
 
-#: ckanext/reminder/logic/action.py:153 ckanext/reminder/logic/action.py:171
+#: ckanext/reminder/logic/action.py:156 ckanext/reminder/logic/action.py:174
 msgid "You must supply an unsubscribe token (parameter \"unsubscribe_token\")."
+msgstr ""
+
+#: ckanext/reminder/templates/admin/config.html:7
+msgid "Dataset reminder email address"
 msgstr ""
 
 #: ckanext/reminder/templates/reminder/snippets/info.html:5
@@ -81,6 +89,6 @@ msgid ""
 "have previously subscribed to"
 msgstr ""
 
-#: ckanext/reminder/templates/reminder/snippets/subscription_form.html:5
+#: ckanext/reminder/templates/reminder/snippets/subscription_form.html:7
 msgid "Subscribe"
 msgstr ""
