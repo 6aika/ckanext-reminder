@@ -17,6 +17,8 @@ Requirements
 ------------
 
 This extension is developed and tested with CKAN version 2.5.2 but versions starting from 2.2 should work fine.
+This extension also needs Bootstrap 3+ for styling to work properly. Bootstrap 2 should mainly be fine, but styles might be a
+bit off at least with the subscription_form template.
 
 
 ------------
