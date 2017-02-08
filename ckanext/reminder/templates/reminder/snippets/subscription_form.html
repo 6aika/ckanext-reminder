@@ -1,7 +1,7 @@
 {% resource "reminder_css/reminder.css" %}
 
 <div class="subscription-form">
-  <form action="/dataset/{{ package.name }}/subscribe" method="post" enctype="application/x-www-form-urlencoded">
+  <form action="{{ package.name }}/subscribe" method="post" enctype="application/x-www-form-urlencoded">
     <div class="form-group">
       <input type="email" name="subscriber_email" required>
       <button type="submit" class="btn">{{ _('Subscribe') }}</button>

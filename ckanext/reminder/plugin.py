@@ -62,15 +62,18 @@ class ReminderPlugin(plugins.SingletonPlugin):
 
         map.connect('/reminder/{subscriber_email}/unsubscribe/{unsubscribe_token}',
                     controller='ckanext.reminder.controller:ReminderController',
-                    action='unsubscribe_index')
+                    action='unsubscribe_index',
+                    conditions=dict(method=['GET']))
 
-        map.connect('/reminder/unsubscribe',
+        map.connect('/reminder/{subscriber_email}/unsubscribe/{unsubscribe_token}',
                     controller='ckanext.reminder.controller:ReminderController',
-                    action='unsubscribe')
+                    action='unsubscribe',
+                    conditions=dict(method=['POST']))
 
-        map.connect('/reminder/unsubscribe_all',
+        map.connect('/reminder/{subscriber_email}/unsubscribe/{unsubscribe_token}/all',
                     controller='ckanext.reminder.controller:ReminderController',
-                    action='unsubscribe_all'),
+                    action='unsubscribe_all',
+                    conditions=dict(method=['POST'])),
 
         return map
     

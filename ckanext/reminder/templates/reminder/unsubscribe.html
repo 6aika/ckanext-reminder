@@ -9,7 +9,7 @@
   <h1>{% block page_heading %}{{ _('Unsubscribe') }}{%endblock%}</h1>
 
   {% if c.subscriptions %}
-    <form action="/reminder/unsubscribe_all" method="post" enctype="application/x-www-form-urlencoded">
+    <form action="{{c.unsubscribe_token}}/all" method="post" enctype="application/x-www-form-urlencoded">
       <input type="hidden" name="unsubscribe_token" value="{{c.unsubscribe_token}}">
       <input type="hidden" name="subscriber_email" value="{{c.subscriber_email}}">
       <button type="submit" class="btn">{{ _('Unsubscribe from all datasets') }}</button>
@@ -19,7 +19,7 @@
       <ul class="subscriptions-list">
         {% for item in c.subscriptions %}
         <li class="subscriptions-list-item">
-          <form action="/reminder/unsubscribe" method="post" enctype="application/x-www-form-urlencoded">
+          <form method="post" enctype="application/x-www-form-urlencoded">
             <input type="hidden" name="unsubscribe_token" value="{{c.unsubscribe_token}}">
             <input type="hidden" name="subscriber_email" value="{{c.subscriber_email}}">
             <input type="hidden" name="package_id" value="{{item.id}}">
