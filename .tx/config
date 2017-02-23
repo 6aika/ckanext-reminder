@@ -2,7 +2,7 @@
 host = https://www.transifex.com
 
 [sixodp.ckanext-reminder]
-file_filter = i18n/<lang>/LC_MESSAGES/ckanext-reminder.po
-source_file = i18n/ckanext-reminder.pot
+file_filter = ckanext/reminder/i18n/<lang>/LC_MESSAGES/ckanext-reminder.po
+source_file = ckanext/reminder/i18n/ckanext-reminder.pot
 source_lang = en
 type = PO
