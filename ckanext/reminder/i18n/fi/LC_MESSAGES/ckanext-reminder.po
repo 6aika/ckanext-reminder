@@ -22,7 +22,7 @@ msgstr ""
 
 #: ckanext/reminder/controller.py:26
 msgid "Invalid request: {error_message}"
-msgstr ""
+msgstr "Virheellinen pyyntö: {error_message}"
 
 #: ckanext/reminder/logic/action.py:43
 msgid "This is a reminder of a dataset expiration"
@@ -42,24 +42,28 @@ msgstr "Tietoaineisto on päivittynyt"
 
 #: ckanext/reminder/logic/action.py:125
 msgid "You must supply a package id or name (parameter \"package\")."
-msgstr ""
+msgstr "Sinun täytyy antaa tietoaineiston id tai nimi (parametri \"package\")."
 
 #: ckanext/reminder/logic/action.py:128 ckanext/reminder/logic/action.py:154
 #: ckanext/reminder/logic/action.py:172
 msgid "You must supply a subscriber email (parameter \"subscriber_email\")."
 msgstr ""
+"Sinun täytyy antaa tilaajan sähköpostiosoite (parametri "
+"\"subscriber_email\")."
 
 #: ckanext/reminder/logic/action.py:132
 msgid "Not found"
-msgstr ""
+msgstr "Ei löytynyt"
 
 #: ckanext/reminder/logic/action.py:151
 msgid "You must supply a package id (parameter \"package_id\")."
-msgstr ""
+msgstr "Sinun täytyy antaa tietoaineiston id (parametri \"package_id\")."
 
 #: ckanext/reminder/logic/action.py:156 ckanext/reminder/logic/action.py:174
 msgid "You must supply an unsubscribe token (parameter \"unsubscribe_token\")."
 msgstr ""
+"Pyynnön täytyy sisältää tilauksen peruutus -avain(parametri "
+"\"unsubscribe_token\")."
 
 #: ckanext/reminder/templates/admin/config.html:7
 msgid "Dataset reminder email address"
