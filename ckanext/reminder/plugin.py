@@ -7,6 +7,7 @@ from ckan.lib.plugins import DefaultTranslation
 class ReminderPlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IConfigurable)
+    plugins.implements(plugins.IPackageController, inherit=True)
     plugins.implements(plugins.IActions)
     plugins.implements(plugins.IRoutes, inherit=True)
     if toolkit.check_ckan_version(min_version='2.5.0'):
@@ -81,3 +82,11 @@ class ReminderPlugin(plugins.SingletonPlugin, DefaultTranslation):
 
         return map
     
+    # IPackageController
+
+    def after_show(self, context, data_dict):
+
+        # Remove reminder date from api
+        if context.get('for_edit') is not True and data_dict.get('reminder'):
+            data_dict.pop('reminder')
+        return data_dict
