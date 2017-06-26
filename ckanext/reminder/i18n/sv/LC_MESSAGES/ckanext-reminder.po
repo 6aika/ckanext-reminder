@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-reminder 0.0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-02-07 10:12+0000\n"
+"POT-Creation-Date: 2017-06-22 10:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Language-Team: Swedish (https://www.transifex.com/6aika-dataportal/teams/68018/sv/)\n"
 "MIME-Version: 1.0\n"
@@ -88,6 +88,10 @@ msgid ""
 "have previously subscribed to"
 msgstr ""
 
-#: ckanext/reminder/templates/reminder/snippets/subscription_form.html:7
+#: ckanext/reminder/templates/reminder/snippets/subscription_form.html:6
+msgid "joe@example.com"
+msgstr ""
+
+#: ckanext/reminder/templates/reminder/snippets/subscription_form.html:8
 msgid "Subscribe"
 msgstr ""
