@@ -43,14 +43,15 @@ To install ckanext-reminder:
 
      sudo service apache2 reload
 
-5. Add the following field to your dataset. E.g. with ckanext-scheming::
-
-    {
-        "field_name": "reminder",
-        "label": "Next reminder date",
-        "preset": "date",
-        "display_snippet": null
-    }
+5. Configure a field in the CKAN config file, which specified the field that should be used
+   for the date of the reminder
+   
+   Add field ``ckanext.reminder.field`` in the CKAN config file. For example:
+   ``ckanext.reminder.field = reminder_field``
+   where reminder_field is the name
+   of the field containing a date when the user should be reminded. The date should
+   be in format year-month-day, for example "2018-05-31". The reminder is only sent
+   if current date is the same as the date in the field specified at ckanext.reminder.field
 
 6. Initialize database tables used by the subscribe to email notifications functionality::
 
