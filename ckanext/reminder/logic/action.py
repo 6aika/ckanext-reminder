@@ -17,9 +17,13 @@ def send_email_reminders(context, data_dict):
         send_reminders()
 
 def get_datasets_with_reminders():
+    '''
+    Returns a dict containing items that expire on current day
+    based on a field defined in the config file.
+    '''
     now = datetime.datetime.now()
     search_dict = {
-        'fq': 'reminder:' + now.strftime("%Y-%m-%d")
+        'fq': config.get('ckanext.reminder.field') + ":" + now.strftime("%Y-%m-%d")
     }
 
     return logic.get_action('package_search')({}, search_dict)
