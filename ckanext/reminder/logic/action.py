@@ -23,7 +23,7 @@ def get_datasets_with_reminders():
     '''
     now = datetime.datetime.now()
     search_dict = {
-        'fq': config.get('ckanext.reminder.field') + ":" + now.strftime("%Y-%m-%d")
+        'fq': config.get('ckanext.reminder.date_field') + ":" + now.strftime("%Y-%m-%d")
     }
 
     return logic.get_action('package_search')({}, search_dict)
@@ -36,7 +36,8 @@ def send_reminders():
     items = get_datasets_with_reminders()
 
     try:
-        recipient_email = config.get('ckanext.reminder.email')
+        recipient_email_default = config.get('ckanext.reminder.email')
++       email_field_name = config.get('ckanext.reminder.email_field')
 
         if(items['results']):
             log.debug('Number of datasets with reminders found: ' + str( len(items['results']) ))
@@ -44,6 +45,10 @@ def send_reminders():
             log.debug('No datasets found with reminder set to current date')
 
         for item in items['results']:
+            if(email_field_name in item and item[email_field_name] != ""):
++                recipient_email = item[email_field_name]
++            else:
++                recipient_email = recipient_email_default
             message_body = _('This is a reminder of a dataset expiration') + ': ' + config.get('ckanext.reminder.site_url') + '/dataset/' + item['name']
             mail_recipient(recipient_email, recipient_email, _('CKAN reminder'), message_body)
 
