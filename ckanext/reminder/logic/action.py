@@ -5,7 +5,7 @@ from ckan.lib.mailer import mail_user
 from ckan.lib.mailer import mail_recipient
 from ckanext.reminder.model import Reminder, ReminderSubscriptionPackageAssociation
 from ckan.logic import ValidationError
-
+from ckan.lib.mailer import MailerException
 import ckan.logic as logic
 import datetime
 import logging
@@ -37,8 +37,7 @@ def send_reminders():
 
     try:
         recipient_email_default = config.get('ckanext.reminder.email')
-+       email_field_name = config.get('ckanext.reminder.email_field')
-
+        email_field_name = config.get('ckanext.reminder.email_field')
         if(items['results']):
             log.debug('Number of datasets with reminders found: ' + str( len(items['results']) ))
         else:
@@ -46,14 +45,18 @@ def send_reminders():
 
         for item in items['results']:
             if(email_field_name in item and item[email_field_name] != ""):
-+                recipient_email = item[email_field_name]
-+            else:
-+                recipient_email = recipient_email_default
+                recipient_email = item[email_field_name]
+            else:
+                recipient_email = recipient_email_default
             message_body = _('This is a reminder of a dataset expiration') + ': ' + config.get('ckanext.reminder.site_url') + '/dataset/' + item['name']
-            mail_recipient(recipient_email, recipient_email, _('CKAN reminder'), message_body)
-
+            try:
+                mail_recipient(recipient_email, recipient_email, _('CKAN reminder'), message_body)
+            except MailerException, ex:
+                log.error("There was an error with sending email to the following address: "+recipient_email)
+                log.exception(ex)
         log.debug("Reminder emails processed")
 
+    # Some other error than MailerException happened
     except Exception, ex:
         log.exception(ex)
         raise
