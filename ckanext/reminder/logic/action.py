@@ -38,6 +38,7 @@ def send_reminders():
     try:
         recipient_email_default = config.get('ckanext.reminder.email')
         email_field_name = config.get('ckanext.reminder.email_field')
+        recipient_name_field = config.get('ckanext.reminder.recipient_name')
         if(items['results']):
             log.debug('Number of datasets with reminders found: ' + str( len(items['results']) ))
         else:
@@ -48,9 +49,14 @@ def send_reminders():
                 recipient_email = item[email_field_name]
             else:
                 recipient_email = recipient_email_default
+            
+            if(recipient_name_field in item and item[recipient_name_field] != ""):
+                recipient_name = item[recipient_name_field]
+            else:
+                recipient_name = recipient_email
             message_body = _('This is a reminder of a dataset expiration') + ': ' + config.get('ckanext.reminder.site_url') + '/dataset/' + item['name']
             try:
-                mail_recipient(recipient_email, recipient_email, _('CKAN reminder'), message_body)
+                mail_recipient(recipient_name, recipient_email, _('CKAN reminder'), message_body)
             except MailerException, ex:
                 log.error("There was an error with sending email to the following address: "+recipient_email)
                 log.exception(ex)
