@@ -41,7 +41,7 @@ def send_reminders():
 
         for item in items['results']:
             message_body = _('This is a reminder of a dataset expiration') + ': ' + config.get('ckanext.reminder.site_url') + '/dataset/' + item['name']
-            mail_recipient(recipient_email, recipient_email, _('CKAN reminder'), message_body)
+            mail_recipient("", recipient_email, _('CKAN reminder'), message_body)
 
         log.debug("Reminder emails processed")
 
@@ -104,7 +104,7 @@ def send_notifications():
                            '\nUnsubscribe from this newsletter: ' + config.get('ckanext.reminder.site_url') + '/reminder/' + \
                            subscriber.subscriber_email + '/unsubscribe/' + subscriber.unsubscribe_token
 
-            mail_recipient(subscriber.subscriber_email, subscriber.subscriber_email, _('Dataset has been updated'), message_body)
+            mail_recipient("", subscriber.subscriber_email, _('Dataset has been updated'), message_body)
             Reminder.update_previous_reminder_sent(subscriber.subscriber_email)
 
         log.info("Notification emails sent")
