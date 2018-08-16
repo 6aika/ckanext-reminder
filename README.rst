@@ -79,6 +79,10 @@ The extension supports one recipient for reminder emails. Required configs are::
     # maintaining the dataset. The email is sent to this address if this is configured
     ckanext.reminder.email_field = <MAINTAINER_EMAIL_ADDRESS>
 
+    # (Optional field) Name of the field containing the name of the person responsible
+    # for maintaining the dataset. If this is not configured, the email address is used
+    # as the name instead
+    ckanext.reminder.recipient_name_field = <MAINTAINER_NAME_FIELD>
 ------------------------
 Development Installation
 ------------------------
