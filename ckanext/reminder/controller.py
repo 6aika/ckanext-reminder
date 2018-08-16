@@ -20,7 +20,7 @@ class ReminderController(p.toolkit.BaseController):
                            'subscriber_email': request.POST['subscriber_email']}
             )
             c.package_subscription_successful = True
-            h.redirect_to(str('/dataset/' + package_id))
+            h.redirect_to(controller='package', action='read', id=package_id)
             return p.toolkit.render('package/read_base.html')
         except logic.ValidationError, error:
             abort(400, _('Invalid request: {error_message}').format(error_message=str(error)))
@@ -46,7 +46,7 @@ class ReminderController(p.toolkit.BaseController):
                        'subscriber_email': subscriber_email,
                        'unsubscribe_token': unsubscribe_token}
         )
-        h.redirect_to(str('/reminder/' + subscriber_email + '/unsubscribe/' + unsubscribe_token))
+        h.redirect_to(controller='ckanext.reminder.controller:ReminderController', action='unsubscribe_index', subscriber_email=subscriber_email, unsubscribe_token=unsubscribe_token)
         return p.toolkit.render('reminder/unsubscribe.html')
 
     def unsubscribe_all(self):
@@ -59,5 +59,5 @@ class ReminderController(p.toolkit.BaseController):
             data_dict={'subscriber_email': subscriber_email,
                        'unsubscribe_token': unsubscribe_token}
         )
-        h.redirect_to(str('/reminder/' + subscriber_email + '/unsubscribe/' + unsubscribe_token))
+        h.redirect_to(controller='ckanext.reminder.controller:ReminderController', action='unsubscribe_index', subscriber_email=subscriber_email, unsubscribe_token=unsubscribe_token)
         return p.toolkit.render('reminder/unsubscribe.html')
