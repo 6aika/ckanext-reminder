@@ -2,7 +2,9 @@ import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 from ckanext.reminder.logic import action
 from ckan.lib.plugins import DefaultTranslation
+import logging
 
+log = logging.getLogger(__name__)
 
 class ReminderPlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.IConfigurer)
@@ -84,9 +86,11 @@ class ReminderPlugin(plugins.SingletonPlugin, DefaultTranslation):
     
     # IPackageController
 
+    # This function requires overriding resource_create and resource_update by adding keep_deletable_attributes_in_api to context
     def after_show(self, context, data_dict):
 
+        keep_deletable_attributes_in_api = context.get('keep_deletable_attributes_in_api', False)
         # Remove reminder date from api
-        if context.get('for_edit') is not True and data_dict.get('reminder'):
+        if (keep_deletable_attributes_in_api is False and context.get('for_edit') is not True) and data_dict.get('reminder'):
             data_dict.pop('reminder')
         return data_dict
