@@ -1,6 +1,7 @@
 import ckan.plugins as p
 from ckanext.reminder.logic import action
 
+
 class ReminderCommand(p.toolkit.CkanCommand):
     '''
     Send notification emails of datasets which have a reminder date set

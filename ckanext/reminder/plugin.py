@@ -7,6 +7,7 @@ import logging
 
 log = logging.getLogger(__name__)
 
+
 class ReminderPlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IConfigurable)
@@ -84,10 +85,11 @@ class ReminderPlugin(plugins.SingletonPlugin, DefaultTranslation):
                     conditions=dict(method=['POST'])),
 
         return map
-    
+
     # IPackageController
 
-    # This function requires overriding resource_create and resource_update by adding keep_deletable_attributes_in_api to context
+    # This function requires overriding resource_create and resource_update by adding
+    # keep_deletable_attributes_in_api to context
     def after_show(self, context, data_dict):
 
         keep_deletable_attributes_in_api = config.get('ckanext.sixodp.keep_deletable_attributes_in_api',

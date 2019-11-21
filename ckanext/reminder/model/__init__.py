@@ -1,16 +1,13 @@
 import uuid
 import datetime
 
-from sqlalchemy import Column, Table, ForeignKey, types
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, ForeignKey, types
 from sqlalchemy.ext.declarative import declarative_base
 from ckan.lib import dictization
-from ckan.model.meta import metadata, mapper, Session
+from ckan.model.meta import Session
 from ckan import model
-from ckan.model.domain_object import DomainObject
 from sqlalchemy.orm import load_only
 from ckan.logic import ValidationError
-import ckan.model.package
 from ckan.model.package import Package
 
 log = __import__('logging').getLogger(__name__)
@@ -19,11 +16,12 @@ Base = declarative_base()
 
 package_association_table = None
 
+
 def make_uuid():
     return unicode(uuid.uuid4())
 
-class Reminder(Base):
 
+class Reminder(Base):
     __tablename__ = 'reminder_subscription'
 
     id = Column(types.UnicodeText, primary_key=True, default=make_uuid)
@@ -73,7 +71,7 @@ class Reminder(Base):
         if not subscriber:
             try:
                 subscriber = Reminder(
-                    subscriber_email = subscriber_email
+                    subscriber_email=subscriber_email
                 )
 
                 model.Session.add(subscriber)
@@ -100,22 +98,22 @@ class Reminder(Base):
             return True
         return False
 
-class ReminderSubscriptionPackageAssociation(Base):
 
+class ReminderSubscriptionPackageAssociation(Base):
     __tablename__ = 'reminder_subscription_package_association'
 
     reminder_subscription_id = Column(types.Text,
-           ForeignKey(Reminder.id,
-                      ondelete='CASCADE',
-                      onupdate='CASCADE'),
-           primary_key=True,
-           nullable=False)
+                                      ForeignKey(Reminder.id,
+                                                 ondelete='CASCADE',
+                                                 onupdate='CASCADE'),
+                                      primary_key=True,
+                                      nullable=False)
     package_id = Column(types.Text,
-           ForeignKey(Package.id,
-                      ondelete='CASCADE',
-                      onupdate='CASCADE'),
-           primary_key=True,
-           nullable=False)
+                        ForeignKey(Package.id,
+                                   ondelete='CASCADE',
+                                   onupdate='CASCADE'),
+                        primary_key=True,
+                        nullable=False)
 
     def as_dict(self):
         context = {'model': model}
@@ -158,11 +156,12 @@ class ReminderSubscriptionPackageAssociation(Base):
             .filter(cls.package_id == package_id) \
             .filter(cls.reminder_subscription_id == reminder_subscription_id)
 
-        if(subscription):
+        if (subscription):
             subscription.delete()
             model.repo.commit()
             return True
         return False
+
 
 def init_tables(engine):
     Base.metadata.create_all(engine)
