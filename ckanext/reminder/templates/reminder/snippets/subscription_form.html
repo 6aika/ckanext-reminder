@@ -3,7 +3,7 @@
 <div class="subscription-form">
   <form action="{{  h.url_for(controller='ckanext.reminder.controller:ReminderController', action='subscribe_to_package', package_id=package.name) }}" method="post" enctype="application/x-www-form-urlencoded">
     <div class="input-group control-group">
-      <input class="form-control" type="email" placeholder="{{ _('joe@example.com') }}" name="subscriber_email" required aria-label="{{ _('Subscribe change notification') }}">
+      <input class="form-control" type="email" placeholder="{{ _('joe@example.com') }}" name="subscriber_email" required aria-label="{{ _('Subscribe') }}">
       <span class="input-group-btn">
         <button type="submit" class="btn btn-primary">{{ _('Subscribe') }}</button>
       </span>
