@@ -2,11 +2,12 @@ import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 from ckanext.reminder.logic import action
 from ckan.lib.plugins import DefaultTranslation
-from pylons import config
+from ckan.plugins.toolkit import config
 import logging
 
 log = logging.getLogger(__name__)
 
+unicode_safe = toolkit.get_validator('unicode_safe')
 
 class ReminderPlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.IConfigurer)
@@ -29,7 +30,7 @@ class ReminderPlugin(plugins.SingletonPlugin, DefaultTranslation):
         ignore_missing = toolkit.get_validator('ignore_missing')
 
         schema.update({
-            'ckanext.reminder.email': [ignore_missing, unicode],
+            'ckanext.reminder.email': [ignore_missing, unicode_safe],
         })
 
         return schema

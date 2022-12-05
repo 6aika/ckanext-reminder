@@ -1,5 +1,5 @@
 from ckan.common import request, _
-from pylons import config
+from ckan.plugins.toolkit import config
 from ckan.lib.mailer import mail_recipient
 from ckanext.reminder.model import Reminder, ReminderSubscriptionPackageAssociation
 from ckan.logic import ValidationError
@@ -61,13 +61,13 @@ def send_reminders():
             try:
 
                 mail_recipient(recipient_name, recipient_email, _('CKAN reminder'), message_body)
-            except MailerException, ex:
+            except MailerException as ex:
                 log.error("There was an error with sending email to the following address: " + recipient_email)
                 log.exception(ex)
         log.debug("Reminder emails processed")
 
     # Some other error than MailerException happened
-    except Exception, ex:
+    except Exception as ex:
         log.exception(ex)
         raise
 
