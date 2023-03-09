@@ -1,0 +1,4 @@
+reminder_css:
+  output: reminder/reminder.css
+  contents:
+    - css/reminder.css

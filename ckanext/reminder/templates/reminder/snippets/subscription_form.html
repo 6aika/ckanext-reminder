@@ -1,7 +1,7 @@
-{% resource "reminder_css/reminder.css" %}
+{% asset "reminder/reminder.css" %}
 
 <div class="subscription-form">
-  <form action="{{  h.url_for(controller='ckanext.reminder.controller:ReminderController', action='subscribe_to_package', package_id=package.name) }}" method="post" enctype="application/x-www-form-urlencoded">
+  <form action="{{  h.url_for('reminder.subscribe_to_package', package_id=package.name) }}" method="post" enctype="application/x-www-form-urlencoded">
     <div class="input-group control-group">
       <input class="form-control" type="email" placeholder="{{ _('joe@example.com') }}" name="subscriber_email" required aria-label="{{ _('Subscribe') }}">
       <span class="input-group-btn">

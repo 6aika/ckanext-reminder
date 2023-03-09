@@ -4,6 +4,8 @@ import ckan.logic as logic
 from ckan.lib.base import h, abort
 from ckan.common import request
 
+from .utils import subscribe_to_package
+
 c = p.toolkit.c
 _ = p.toolkit._
 flatten_to_string_key = logic.flatten_to_string_key

@@ -1,4 +1,4 @@
-{% resource "reminder_css/reminder.css" %}
+{% asset "reminder/reminder.css" %}
 {% extends "page.html" %}
 
 {% block breadcrumb_content %}
@@ -24,7 +24,7 @@
             <input type="hidden" name="subscriber_email" value="{{c.subscriber_email}}">
             <input type="hidden" name="package_id" value="{{item.id}}">
             <button type="submit" class="btn">{{ _('Unsubscribe') }}</button>
-            <a href="{{ h.url_for(controller='package', action='read', id=item.name) }}">{{ item.title }}</a>
+            <a href="{{ h.url_for('dataset.read', id=item.name) }}">{{ item.title }}</a>
           </form>
         </li>
         {% endfor %}
