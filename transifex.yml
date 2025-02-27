@@ -1,0 +1,7 @@
+git:
+  filters:
+    - filter_type: file
+      file_format: PO
+      source_language: en
+      source_file: 'ckanext/reminder/i18n/ckanext-reminder.pot'
+      translation_files_expression: 'ckanext/reminder/i18n/<lang>/LC_MESSAGES/ckanext-reminder.po'
