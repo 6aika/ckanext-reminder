@@ -18,7 +18,7 @@ package_association_table = None
 
 
 def make_uuid():
-    return unicode(uuid.uuid4())
+    return uuid.uuid4()
 
 
 class Reminder(Base):
@@ -53,6 +53,22 @@ class Reminder(Base):
         Session.add(instance)
         Session.commit()
         return instance.as_dict()
+
+    @classmethod
+    def get(cls, id):
+        instance = model.Session.query(cls).filter(cls.id == id).first()
+        return instance.as_dict()
+
+    @classmethod
+    def all(cls):
+        q = model.Session.query(cls)
+        return q.all()
+
+    @classmethod
+    def remove(cls, id):
+        instance = model.Session.query(cls).filter(cls.id == id)
+        instance.delete()
+        model.repo.commit()
 
     @classmethod
     def get_subscribed_users(cls):
@@ -137,6 +153,11 @@ class ReminderSubscriptionPackageAssociation(Base):
         return instance
 
     @classmethod
+    def all(cls):
+        q = model.Session.query(cls)
+        return q.all()
+
+    @classmethod
     def create(cls, **kwargs):
         instance = cls(**kwargs)
         Session.add(instance)
@@ -157,6 +178,9 @@ class ReminderSubscriptionPackageAssociation(Base):
             .filter(cls.reminder_subscription_id == reminder_subscription_id)
 
         if (subscription):
+            remindee = model.Session.query(Reminder).filter(Reminder.id == reminder_subscription_id)
+            if remindee:
+                remindee.delete()
             subscription.delete()
             model.repo.commit()
             return True
