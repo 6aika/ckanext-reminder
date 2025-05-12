@@ -46,7 +46,7 @@ msgstr "Data on päivittynyt"
 
 #: ckanext/reminder/logic/action.py:152
 msgid "You must supply a package id or name (parameter \"package\")."
-msgstr "Sinun täytyy antaa datan id tai nimi (parametri \"package\")."
+msgstr "Sinun täytyy antaa datan ID tai nimi (parametri \"package\")."
 
 #: ckanext/reminder/logic/action.py:155 ckanext/reminder/logic/action.py:182
 #: ckanext/reminder/logic/action.py:201
