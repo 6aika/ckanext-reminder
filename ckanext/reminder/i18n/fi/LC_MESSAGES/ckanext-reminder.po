@@ -61,7 +61,7 @@ msgstr "Ei löytynyt"
 
 #: ckanext/reminder/logic/action.py:179
 msgid "You must supply a package id (parameter \"package_id\")."
-msgstr "Sinun täytyy antaa datan id (parametri \"package_id\")."
+msgstr "Sinun täytyy antaa datan ID (parametri \"package_id\")."
 
 #: ckanext/reminder/logic/action.py:184 ckanext/reminder/logic/action.py:203
 msgid "You must supply an unsubscribe token (parameter \"unsubscribe_token\")."
