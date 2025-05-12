@@ -71,7 +71,7 @@ msgstr ""
 
 #: ckanext/reminder/templates/admin/config.html:7
 msgid "Dataset reminder email address"
-msgstr "Sähköpostiosoite päivitysmuistutusten vastaanottoon"
+msgstr "Sähköpostiosoite muistutusten vastaanottoon"
 
 #: ckanext/reminder/templates/reminder/snippets/info.html:5
 #: ckanext/reminder/templates/reminder/unsubscribe.html:9
