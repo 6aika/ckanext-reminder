@@ -101,7 +101,7 @@ msgstr ""
 
 #: ckanext/reminder/templates/reminder/snippets/subscription_form.html:6
 msgid "joe@example.com"
-msgstr "Sähköpostiosoitteesi"
+msgstr "Sähköpostiosoite"
 
 #: ckanext/reminder/templates/reminder/snippets/subscription_form.html:6
 #: ckanext/reminder/templates/reminder/snippets/subscription_form.html:8
